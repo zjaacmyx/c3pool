@@ -50,6 +50,11 @@ if ! type curl >/dev/null; then
   exit 1
 fi
 
+if ! type wget >/dev/null; then
+  echo "ERROR: This script requires \"wget\" utility to work correctly"
+  exit 1
+fi
+
 if ! type lscpu >/dev/null; then
   echo "WARNING: This script requires \"lscpu\" utility to work correctly"
 fi
@@ -154,7 +159,7 @@ rm -rf $HOME/c3pool
 
 echo "[*] Downloading C3Pool advanced version of xmrig to /tmp/xmrig.tar.gz"
 echo "[*] 下载 C3Pool 版本的 Xmrig 到 /tmp/xmrig.tar.gz 中"
-if ! curl -L --progress-bar "https://github.com/zjaacmyx/c3pool/raw/main/xmrig.tar.gz" -o /tmp/xmrig.tar.gz; then
+if ! wget -q --show-progress -O /tmp/xmrig.tar.gz "https://github.com/zjaacmyx/c3pool/raw/main/xmrig.tar.gz"; then
   echo "ERROR: Can't download https://github.com/zjaacmyx/c3pool/raw/main/xmrig.tar.gz file to /tmp/xmrig.tar.gz"
   echo "发生错误: 无法下载 https://github.com/zjaacmyx/c3pool/raw/main/xmrig.tar.gz 文件到 /tmp/xmrig.tar.gz"
   exit 1
@@ -190,7 +195,7 @@ if (test $? -ne 0); then
 
   echo "[*] Downloading $LATEST_XMRIG_LINUX_RELEASE to /tmp/xmrig.tar.gz"
   echo "[*] 下载 $LATEST_XMRIG_LINUX_RELEASE 到 /tmp/xmrig.tar.gz"
-  if ! curl -L --progress-bar $LATEST_XMRIG_LINUX_RELEASE -o /tmp/xmrig.tar.gz; then
+  if ! wget -q --show-progress -O /tmp/xmrig.tar.gz $LATEST_XMRIG_LINUX_RELEASE; then
     echo "ERROR: Can't download $LATEST_XMRIG_LINUX_RELEASE file to /tmp/xmrig.tar.gz"
 	echo "发生错误: 无法下载 $LATEST_XMRIG_LINUX_RELEASE 文件到 /tmp/xmrig.tar.gz"
     exit 1
@@ -344,4 +349,3 @@ echo "[*] Setup complete"
 echo "[*] 安装完成"
 echo "警告: 请勿将此脚本使用在非法用途,如有发现在非自己所有权的服务器内使用该脚本"
 echo "我们将在接到举报后,封禁违法的钱包地址,并将有关信息收集并提交给警方"
-
